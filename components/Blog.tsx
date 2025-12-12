@@ -6,10 +6,30 @@ interface BlogProps {
   onBack: () => void;
 }
 
+interface BlogPost {
+  id: number | string;
+  category: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  date: string;
+  fires: number;
+  author: string;
+  isNew: boolean;
+}
+
+interface AuthorProfile {
+  name: string;
+  role: string;
+  bio: string;
+  avatar: string;
+}
+
 const PROFILE_KEY = 'lumetric_author_profile_v1';
 
 // PERFIL PADRÃO (Placeholder para o Admin Local)
-const DEFAULT_PROFILE = {
+const DEFAULT_PROFILE: AuthorProfile = {
   name: "Admin Lumetric",
   role: "Editor Chefe",
   bio: "Especialista em Estratégias de Dominação de Mercado. Transformo dados brutos em narrativas que vendem milhões.",
@@ -30,15 +50,16 @@ const FILTER_CATEGORIES = ["TODOS", ...MASTER_CATEGORIES];
 const Blog: React.FC<BlogProps> = ({ onBack }) => {
   const { t } = useLanguage();
   // --- STATE DE DADOS ---
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // --- STATE DO PERFIL DO AUTOR (Local) ---
-  const [authorProfile, setAuthorProfile] = useState(() => {
+  const [authorProfile, setAuthorProfile] = useState<AuthorProfile>(() => {
     try {
       const savedProfile = localStorage.getItem(PROFILE_KEY);
       return savedProfile ? JSON.parse(savedProfile) : DEFAULT_PROFILE;
     } catch (error) {
+      console.error(error); // Log error to satisfy linter regarding unused variable if applicable, or simple error catch
       return DEFAULT_PROFILE;
     }
   });
@@ -64,7 +85,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
       if (error) throw error;
 
       // Mapear dados do Supabase para o formato do frontend
-      const mappedPosts = data?.map(post => ({
+      const mappedPosts: BlogPost[] = data?.map((post: any) => ({
         id: post.id,
         category: post.category,
         title: post.title,
@@ -89,12 +110,13 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array intentionally
 
   // --- STATE DE NAVEGAÇÃO E FILTROS ---
   const [activeCategory, setActiveCategory] = useState("TODOS");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedArticle, setSelectedArticle] = useState<any | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   
@@ -151,7 +173,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
     const postId = params.get('post');
     if (postId && posts.length > 0) {
       // Comparação flexível (string vs number)
-      const foundPost = posts.find((p: any) => p.id.toString() === postId.toString());
+      const foundPost = posts.find((p) => p.id.toString() === postId.toString());
       if (foundPost) setSelectedArticle(foundPost);
     }
   }, [posts]);
@@ -166,11 +188,11 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
       }
       window.history.pushState({}, '', url.toString());
     } catch (error) {
-      console.warn('Atualização de URL bloqueada.');
+      console.warn('Atualização de URL bloqueada.', error);
     }
   };
 
-  const openArticle = (post: any) => {
+  const openArticle = (post: BlogPost) => {
     setSelectedArticle(post);
     handleUrlUpdate(post.id.toString());
   };
@@ -185,7 +207,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
     e.currentTarget.src = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800";
   };
 
-  const filteredPosts = posts.filter((post: any) => {
+  const filteredPosts = posts.filter((post) => {
     const matchesCategory = activeCategory === "TODOS" || post.category === activeCategory;
     const matchesSearch = searchQuery === "" || 
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -574,9 +596,9 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   // =========================================================================
   if (selectedArticle) {
     // Calcular Artigos Relacionados (Mesma Categoria, excluindo o atual)
-    const relatedPosts = posts
-      .filter((p: any) => p.category === selectedArticle.category && p.id !== selectedArticle.id)
-      .slice(0, 3);
+    // const relatedPosts = posts
+    //   .filter((p: any) => p.category === selectedArticle.category && p.id !== selectedArticle.id)
+    //   .slice(0, 3);
 
     return (
       <div className="min-h-screen w-full bg-[#0a0a0a] text-white animate-fade-in relative flex flex-col">
