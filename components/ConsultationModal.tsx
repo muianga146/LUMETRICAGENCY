@@ -103,7 +103,7 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ onClose }) => {
   );
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center md:px-4 md:py-6">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-background-dark/90 backdrop-blur-md animate-fade-in" 
@@ -111,12 +111,12 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ onClose }) => {
       ></div>
       
       {/* Modal Content */}
-      <div className="relative z-10 w-full max-w-2xl bg-[#121212] border border-white/10 rounded-2xl shadow-2xl flex flex-col max-h-full overflow-hidden animate-slide-up">
+      <div className="relative z-10 w-full max-w-2xl bg-[#121212] border-0 md:border border-white/10 rounded-none md:rounded-2xl shadow-2xl flex flex-col h-full md:h-auto md:max-h-[90vh] overflow-hidden animate-slide-up">
         
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#121212]">
+        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#121212] shrink-0">
           <div>
-            <h2 className="text-2xl font-bold text-white tracking-tight">{t('modal.title')}</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">{t('modal.title')}</h2>
             <p className="text-white/50 text-xs uppercase tracking-widest mt-1">{t('modal.subtitle')}</p>
           </div>
           <button 
@@ -277,7 +277,7 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ onClose }) => {
             </div>
 
             {/* Footer Actions */}
-            <div className="p-6 border-t border-white/10 bg-[#121212]">
+            <div className="p-6 border-t border-white/10 bg-[#121212] shrink-0">
               {status === 'error' && (
                 <p className="text-red-500 text-sm text-center mb-4">Erro ao enviar. Verifique sua conexão e tente novamente.</p>
               )}

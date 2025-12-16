@@ -59,7 +59,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
       const savedProfile = localStorage.getItem(PROFILE_KEY);
       return savedProfile ? JSON.parse(savedProfile) : DEFAULT_PROFILE;
     } catch (error) {
-      console.error(error); // Log error to satisfy linter regarding unused variable if applicable, or simple error catch
+      console.error(error); 
       return DEFAULT_PROFILE;
     }
   });
@@ -111,7 +111,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   useEffect(() => {
     fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty dependency array intentionally
+  }, []);
 
   // --- STATE DE NAVEGAÇÃO E FILTROS ---
   const [activeCategory, setActiveCategory] = useState("TODOS");
@@ -172,7 +172,6 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
     const params = new URLSearchParams(window.location.search);
     const postId = params.get('post');
     if (postId && posts.length > 0) {
-      // Comparação flexível (string vs number)
       const foundPost = posts.find((p) => p.id.toString() === postId.toString());
       if (foundPost) setSelectedArticle(foundPost);
     }
@@ -414,38 +413,38 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   if (isEditing) {
     return (
       <div className="min-h-screen w-full bg-[#050505] text-white animate-fade-in flex flex-col relative">
-        <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-primary">edit_document</span>
-            <span className="font-bold tracking-widest text-sm text-white/50">STUDIO DE CRIAÇÃO</span>
+        <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="material-symbols-outlined text-primary text-xl md:text-2xl">edit_document</span>
+            <span className="font-bold tracking-widest text-xs md:text-sm text-white/50 hidden xs:inline">STUDIO DE CRIAÇÃO</span>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 md:gap-4 items-center">
             <button 
               onClick={() => setShowProfileModal(true)}
-              className="size-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 hover:text-primary transition-colors mr-2"
+              className="size-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 hover:text-primary transition-colors mr-1 md:mr-2"
               title="Editar Perfil do Autor"
             >
-              <span className="material-symbols-outlined text-lg">settings</span>
+              <span className="material-symbols-outlined text-base md:text-lg">settings</span>
             </button>
 
             <button 
               onClick={() => setIsEditing(false)}
-              className="px-6 py-2 text-sm font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+              className="px-3 md:px-6 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
             >
               {t('blog.cancel_btn')}
             </button>
             <button 
               onClick={handlePublish}
               disabled={isPublishing}
-              className={`px-6 py-2 bg-primary text-white rounded shadow-[0_0_20px_-5px_rgba(109,9,179,0.5)] hover:bg-white hover:text-primary transition-all text-sm font-bold uppercase tracking-widest ${isPublishing ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-4 md:px-6 py-2 bg-primary text-white rounded shadow-[0_0_20px_-5px_rgba(109,9,179,0.5)] hover:bg-white hover:text-primary transition-all text-xs md:text-sm font-bold uppercase tracking-widest ${isPublishing ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {isPublishing ? 'Publicando...' : t('blog.publish_btn')}
+              {isPublishing ? '...' : t('blog.publish_btn')}
             </button>
           </div>
         </nav>
 
         {/* Área de Edição */}
-        <div className="max-w-4xl mx-auto w-full px-6 pt-32 pb-20 flex-1 flex flex-col gap-8">
+        <div className="max-w-4xl mx-auto w-full px-4 md:px-6 pt-24 md:pt-32 pb-20 flex-1 flex flex-col gap-6 md:gap-8">
           
           <div className="w-full relative group">
             <input 
@@ -457,11 +456,11 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             />
             
             {editorImage ? (
-              <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden border border-white/20 group-hover:border-primary/50 transition-colors shadow-2xl">
+              <div className="relative w-full h-48 md:h-80 rounded-2xl overflow-hidden border border-white/20 group-hover:border-primary/50 transition-colors shadow-2xl">
                 <img src={editorImage} alt="Preview" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
                    <label htmlFor="cover-upload" className="cursor-pointer px-4 py-2 bg-white/10 hover:bg-white text-white hover:text-black rounded font-bold uppercase text-xs tracking-widest border border-white/20 transition-all">
-                      Trocar Imagem
+                      Trocar
                    </label>
                    <button onClick={() => setEditorImage("")} className="px-4 py-2 bg-red-500/20 hover:bg-red-500 text-red-200 hover:text-white rounded font-bold uppercase text-xs tracking-widest border border-red-500/30 transition-all">
                       Remover
@@ -471,11 +470,10 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             ) : (
               <label 
                 htmlFor="cover-upload" 
-                className="w-full h-40 md:h-48 border-2 border-dashed border-white/10 hover:border-primary/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer bg-white/5 hover:bg-white/[0.07] transition-all group"
+                className="w-full h-32 md:h-48 border-2 border-dashed border-white/10 hover:border-primary/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer bg-white/5 hover:bg-white/[0.07] transition-all group"
               >
-                <span className="material-symbols-outlined text-4xl text-white/20 group-hover:text-primary mb-2 transition-colors">add_photo_alternate</span>
-                <span className="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">Carregar Capa do Artigo</span>
-                <span className="text-[10px] text-white/20 mt-1">JPG, PNG ou GIF (Max 800KB)</span>
+                <span className="material-symbols-outlined text-3xl md:text-4xl text-white/20 group-hover:text-primary mb-2 transition-colors">add_photo_alternate</span>
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">Carregar Capa</span>
               </label>
             )}
           </div>
@@ -504,14 +502,14 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             placeholder="Título Impactante Aqui..."
             value={editorTitle}
             onChange={(e) => setEditorTitle(e.target.value)}
-            className="w-full bg-transparent border-none text-5xl md:text-7xl font-bold text-white placeholder-white/20 focus:outline-none focus:ring-0 leading-tight"
+            className="w-full bg-transparent border-none text-4xl md:text-7xl font-bold text-white placeholder-white/20 focus:outline-none focus:ring-0 leading-tight"
           />
 
           <textarea 
             placeholder="Comece a escrever sua obra-prima..."
             value={editorContent}
             onChange={(e) => setEditorContent(e.target.value)}
-            className="w-full flex-1 bg-transparent border-none text-xl md:text-2xl text-white/80 font-light leading-relaxed placeholder-white/10 focus:outline-none focus:ring-0 resize-none min-h-[50vh]"
+            className="w-full flex-1 bg-transparent border-none text-lg md:text-2xl text-white/80 font-light leading-relaxed placeholder-white/10 focus:outline-none focus:ring-0 resize-none min-h-[50vh]"
           />
         </div>
 
@@ -595,22 +593,17 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   // VIEW 2: MODO LEITURA (ARTIGO EXPANDIDO)
   // =========================================================================
   if (selectedArticle) {
-    // Calcular Artigos Relacionados (Mesma Categoria, excluindo o atual)
-    // const relatedPosts = posts
-    //   .filter((p: any) => p.category === selectedArticle.category && p.id !== selectedArticle.id)
-    //   .slice(0, 3);
-
     return (
       <div className="min-h-screen w-full bg-[#0a0a0a] text-white animate-fade-in relative flex flex-col">
-        <nav className="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <nav className="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4 flex justify-between items-center">
           <button 
             onClick={closeArticle}
-            className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+            className="group flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
           >
             <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
             {t('blog.back_grid')}
           </button>
-          <span className="text-xs font-bold text-primary border border-primary/30 px-2 py-1 rounded bg-primary/10">
+          <span className="text-[10px] md:text-xs font-bold text-primary border border-primary/30 px-2 py-1 rounded bg-primary/10">
             {selectedArticle.category}
           </span>
         </nav>
@@ -637,23 +630,34 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
            <span className="font-bold text-sm uppercase tracking-widest">{toastMessage}</span>
         </div>
 
-        {/* Floating Action Button (Desktop Only Fire) */}
-        <div className="hidden lg:block fixed bottom-10 left-1/2 -translate-x-1/2 z-40">
-          <button
-            onClick={handleFireClick}
-            className={`group flex items-center gap-3 px-6 py-3 rounded-full border transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]
-              ${hasFired 
-                ? 'bg-orange-600/20 border-orange-500 text-orange-500 scale-105' 
-                : 'bg-[#1a1a1a] border-white/10 text-white hover:border-orange-500 hover:text-orange-500 hover:scale-105'
-              }`}
-          >
-            <span className={`material-symbols-outlined text-2xl transition-transform duration-300 ${hasFired ? 'scale-125' : 'group-hover:scale-110'}`}>
-              local_fire_department
-            </span>
-            <span className="font-bold font-mono text-lg">
-              {localFires}
-            </span>
-          </button>
+        {/* CONTENT */}
+        <div className="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 pt-32 pb-24">
+            <div className="mb-10 text-center">
+               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">{selectedArticle.title}</h1>
+               <div className="flex items-center justify-center gap-4 text-xs text-white/50">
+                  <span>{selectedArticle.date}</span>
+                  <span className="size-1 bg-white/20 rounded-full"></span>
+                  <span>{getReadingTime(selectedArticle.content)}</span>
+                  <span className="size-1 bg-white/20 rounded-full"></span>
+                  <span className="text-primary font-bold">{selectedArticle.author}</span>
+               </div>
+            </div>
+
+            <div className="w-full h-[30vh] md:h-[50vh] rounded-2xl overflow-hidden mb-12 shadow-2xl relative">
+                <img src={selectedArticle.image} alt={selectedArticle.title} onError={handleImageError} className="w-full h-full object-cover" />
+            </div>
+
+            <div 
+               className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl text-white/80 leading-loose"
+               dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
+            />
+        </div>
+
+        {/* Floating Action Button Mobile */}
+        <div className="lg:hidden fixed bottom-6 right-6 z-40">
+           <button onClick={handleFireClick} className={`size-14 rounded-full flex items-center justify-center shadow-lg border ${hasFired ? 'bg-orange-600 border-orange-400 text-white' : 'bg-primary border-primary text-white'}`}>
+              <span className="material-symbols-outlined text-2xl">local_fire_department</span>
+           </button>
         </div>
 
         <BlogFooter />
@@ -667,45 +671,44 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   return (
     <div className="min-h-screen w-full bg-background-dark text-white animate-fade-in relative flex flex-col">
       
-      <nav className="fixed top-0 left-0 w-full z-50 bg-background-dark/90 backdrop-blur-md border-b border-white/10 px-6 py-4">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-background-dark/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button 
             onClick={onBack}
-            className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+            className="group flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
           >
             <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
             {t('blog.back_home')}
           </button>
           
           <div className="flex items-center gap-2">
-            {/* Logo in Blog Header */}
             <img 
               src="/logo.png" 
               alt="LUMETRIC" 
-              className="h-6 w-auto object-contain"
+              className="h-5 md:h-6 w-auto object-contain"
               onError={(e) => {
                 e.currentTarget.onerror = null;
                 e.currentTarget.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNmQwOWIzIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PG1hc2sgaWQ9Im0iPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0id2hpdGUiLz48bGluZSB4MT0iNCIgeTE9IjgiIHgyPSIxMiIgeTI9IjEyIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiLz48L21hc2s+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOSIgbWFzaz0idXJsKCNtKSIvPjwvc3ZnPg==";
               }}
             />
-            <div className="font-bold tracking-tight text-lg">
+            <div className="font-bold tracking-tight text-base md:text-lg hidden xs:block">
               LUMETRIC <span className="text-primary opacity-80">| INSIGHTS</span>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-6 pt-32 flex-1">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-28 md:pt-32 flex-1">
         
         <div className="mb-12">
-            <h1 className="text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-6">
+            <h1 className="text-4xl xs:text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-6">
               CONHECIMENTO<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">É PODER.</span>
             </h1>
         </div>
 
         {/* BARRA DE FILTROS E BUSCA */}
-        <div className={`sticky top-[72px] z-40 transition-all duration-500 ease-in-out -mx-6 px-6 py-4 mb-10 ${isScrolled ? 'bg-background-dark/90 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
+        <div className={`sticky top-[72px] z-40 transition-all duration-500 ease-in-out -mx-4 md:-mx-6 px-4 md:px-6 py-4 mb-10 ${isScrolled ? 'bg-background-dark/90 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
            <div className="space-y-4 max-w-7xl mx-auto">
              {/* Search Input */}
              <div className="relative w-full max-w-md">
@@ -715,17 +718,17 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
                    placeholder={t('blog.search_placeholder')}
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
-                   className="w-full bg-transparent border-b border-white/20 py-2 pl-8 text-white placeholder-white/20 focus:outline-none focus:border-primary transition-colors text-lg"
+                   className="w-full bg-transparent border-b border-white/20 py-2 pl-8 text-white placeholder-white/20 focus:outline-none focus:border-primary transition-colors text-base md:text-lg"
                 />
              </div>
 
              {/* Filters */}
-             <div className="flex overflow-x-auto gap-8 pb-2 no-scrollbar whitespace-nowrap mask-image-gradient">
+             <div className="flex overflow-x-auto gap-6 md:gap-8 pb-2 no-scrollbar whitespace-nowrap mask-image-gradient">
               {FILTER_CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`text-sm font-bold tracking-widest uppercase transition-all relative flex-shrink-0
+                  className={`text-xs md:text-sm font-bold tracking-widest uppercase transition-all relative flex-shrink-0
                     ${activeCategory === cat ? 'text-white' : 'text-white/40 hover:text-white/70'}
                   `}
                 >
@@ -745,7 +748,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
              <p>{t('blog.loading')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24">
             {filteredPosts.map((post: any, index: number) => (
               <article 
                 key={post.id}
@@ -753,7 +756,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
                 className="group bg-[#121212] border border-white/10 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_-5px_rgba(109,9,179,0.3)] hover:border-primary/50 flex flex-col h-full animate-fade-in-up fill-mode-forwards relative"
                 style={{ animationDelay: `${Math.min(index * 100, 1000)}ms` }}
               >
-                <div className="h-48 overflow-hidden relative bg-gray-800">
+                <div className="h-48 md:h-56 overflow-hidden relative bg-gray-800">
                   <img 
                     src={post.image || "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"} 
                     alt={post.title} 
@@ -819,22 +822,22 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
         )}
 
         {/* BANNER DE CTA (TORNE-SE AUTOR) */}
-        <div className="w-full rounded-2xl border border-primary/50 bg-gradient-to-r from-[#121212] to-primary/10 p-10 md:p-16 text-center relative overflow-hidden group shadow-[0_0_40px_rgba(109,9,179,0.2)]">
+        <div className="w-full rounded-2xl border border-primary/50 bg-gradient-to-r from-[#121212] to-primary/10 p-6 md:p-16 text-center relative overflow-hidden group shadow-[0_0_40px_rgba(109,9,179,0.2)]">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/30 transition-colors duration-500"></div>
             
             <div className="relative z-10 max-w-2xl mx-auto">
-              <span className="inline-block mb-4 text-primary text-xs font-bold uppercase tracking-[0.2em] border border-primary/30 px-3 py-1 rounded-full bg-primary/10">
+              <span className="inline-block mb-4 text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] border border-primary/30 px-3 py-1 rounded-full bg-primary/10">
                 {t('blog.cta_elite_title')}
               </span>
-              <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight whitespace-pre-line">
+              <h3 className="text-2xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight whitespace-pre-line">
                 {t('blog.cta_title')}
               </h3>
-              <p className="text-white/60 mb-8 font-light text-lg">
+              <p className="text-white/60 mb-8 font-light text-sm md:text-lg">
                 {t('blog.cta_subtitle')}
               </p>
               <button 
                 onClick={() => setShowWaitlistModal(true)}
-                className="px-8 py-4 bg-primary text-white rounded-lg font-bold text-sm md:text-base uppercase tracking-widest hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_-5px_rgba(109,9,179,0.5)]"
+                className="px-6 md:px-8 py-3 md:py-4 bg-primary text-white rounded-lg font-bold text-sm md:text-base uppercase tracking-widest hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_-5px_rgba(109,9,179,0.5)]"
               >
                 {t('blog.cta_button')}
               </button>
@@ -893,18 +896,18 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
 
       {/* MODAL WAITLIST / APLICAÇÃO (SUPABASE) */}
       {showWaitlistModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/90 backdrop-blur-md">
-          <div className="bg-[#121212] border border-white/10 p-8 rounded-2xl w-full max-w-2xl relative animate-fade-in shadow-2xl flex flex-col max-h-[95vh]">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center md:px-4 bg-black/90 backdrop-blur-md">
+          <div className="bg-[#121212] border-0 md:border border-white/10 p-6 md:p-8 rounded-none md:rounded-2xl w-full max-w-2xl h-full md:h-auto md:max-h-[95vh] relative animate-fade-in shadow-2xl flex flex-col">
             <button 
               onClick={() => setShowWaitlistModal(false)}
-              className="absolute top-4 right-4 text-white/50 hover:text-white"
+              className="absolute top-4 right-4 text-white/50 hover:text-white z-10"
             >
               <span className="material-symbols-outlined">close</span>
             </button>
             
-            <div className="text-center mb-6">
-               <h2 className="text-2xl font-bold uppercase tracking-widest mb-2 text-white">Aplicação para Autor Verificado</h2>
-               <p className="text-white/60 text-sm leading-relaxed">
+            <div className="text-center mb-6 mt-4 md:mt-0">
+               <h2 className="text-xl md:text-2xl font-bold uppercase tracking-widest mb-2 text-white">Aplicação para Autor Verificado</h2>
+               <p className="text-white/60 text-xs md:text-sm leading-relaxed">
                  A Lumetric busca mentes obcecadas por resultado. Prove que você é uma delas.
                </p>
             </div>
@@ -1015,7 +1018,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
               <button 
                 type="submit" 
                 disabled={isSubmittingApp}
-                className={`w-full h-14 bg-primary text-white font-bold uppercase tracking-widest rounded transition-all shadow-[0_0_20px_-5px_rgba(109,9,179,0.4)] mt-4
+                className={`w-full h-14 bg-primary text-white font-bold uppercase tracking-widest rounded transition-all shadow-[0_0_20px_-5px_rgba(109,9,179,0.4)] mt-4 mb-4 md:mb-0
                   ${isSubmittingApp 
                     ? 'opacity-50 cursor-not-allowed' 
                     : 'hover:bg-white hover:text-primary hover:scale-[1.01]'
