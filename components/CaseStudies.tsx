@@ -158,21 +158,6 @@ const CaseStudies: React.FC = () => {
       }
     },
     {
-      image: "https://images.unsplash.com/photo-1519671482538-518b48d19eb8?auto=format&fit=crop&q=80&w=800",
-      bgText: "LOCAL",
-      client: "ENCONTRO DE LUZES — " + (language === 'pt' ? "Lançamento Estratégico" : "Strategic Launch"),
-      description: language === 'pt' ? "Estratégia: Gestão de Evento + Tráfego Local" : "Strategy: Event Management + Local Traffic",
-      buttonText: t('cases.view_experience'),
-      modalContent: {
-        story: language === 'pt'
-          ? "Para a inauguração deste espaço gastronómico, a estratégia foi 'gerar escassez'. Utilizamos campanhas geolocalizadas para criar um burburinho local antes da abertura das portas."
-          : "For the inauguration of this gastronomic space, the strategy was to 'generate scarcity'. We used geolocated campaigns to create local buzz before the doors opened.",
-        result: language === 'pt'
-          ? "Uma inauguração com casa cheia e percepção de exclusividade imediata. Provamos que o tráfego pago bem feito enche mesas no mundo real."
-          : "A full-house inauguration and immediate perception of exclusivity. We proved that well-done paid traffic fills tables in the real world."
-      }
-    },
-    {
       image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800",
       bgText: "TECH",
       client: "AUTO TECH — " + (language === 'pt' ? "Validação de Demanda" : "Demand Validation"),
@@ -226,7 +211,7 @@ const CaseStudies: React.FC = () => {
             />
           ))}
           
-          {!showAll && (
+          {!showAll && casesData.length > 3 && (
             <div 
               onClick={() => setShowAll(true)}
               className="flex h-[500px] w-[200px] md:h-[600px] md:w-[300px] flex-shrink-0 flex-col items-center justify-center rounded-2xl border border-white/10 p-6 text-center text-gray-500 hover:text-primary hover:border-primary/50 transition-colors cursor-pointer group"
