@@ -412,7 +412,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   // =========================================================================
   if (isEditing) {
     return (
-      <div className="min-h-screen w-full bg-[#050505] text-white animate-fade-in flex flex-col relative">
+      <div className="min-h-screen w-full bg-[#050505] text-white animate-fade-in flex flex-col relative overflow-x-hidden">
         <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 md:gap-3">
             <span className="material-symbols-outlined text-primary text-xl md:text-2xl">edit_document</span>
@@ -594,14 +594,14 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   // =========================================================================
   if (selectedArticle) {
     return (
-      <div className="min-h-screen w-full bg-[#0a0a0a] text-white animate-fade-in relative flex flex-col">
+      <div className="min-h-screen w-full bg-[#0a0a0a] text-white animate-fade-in relative flex flex-col overflow-x-hidden">
         <nav className="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4 flex justify-between items-center">
           <button 
             onClick={closeArticle}
             className="group flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
           >
             <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
-            {t('blog.back_grid')}
+            <span className="hidden xs:inline">{t('blog.back_grid')}</span>
           </button>
           <span className="text-[10px] md:text-xs font-bold text-primary border border-primary/30 px-2 py-1 rounded bg-primary/10">
             {selectedArticle.category}
@@ -669,46 +669,52 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   // VIEW 3: GRID (LISTAGEM PADRÃO)
   // =========================================================================
   return (
-    <div className="min-h-screen w-full bg-background-dark text-white animate-fade-in relative flex flex-col">
+    <div className="min-h-screen w-full bg-background-dark text-white animate-fade-in relative flex flex-col overflow-x-hidden">
       
-      <nav className="fixed top-0 left-0 w-full z-50 bg-background-dark/90 backdrop-blur-md border-b border-white/10 px-4 md:px-6 py-4">
+      {/* 1. Header Responsivo Otimizado para Mobile */}
+      <nav className="fixed top-0 left-0 w-full z-50 bg-background-dark/95 backdrop-blur-xl border-b border-white/10 px-4 md:px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button 
             onClick={onBack}
             className="group flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
           >
-            <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
-            {t('blog.back_home')}
+            <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1 text-xl md:text-2xl">arrow_back</span>
+            {/* Esconde o texto em telas muito pequenas para evitar colisão */}
+            <span className="hidden xs:inline">{t('blog.back_home')}</span>
           </button>
           
           <div className="flex items-center gap-2">
             <img 
               src="/logo.png" 
               alt="LUMETRIC" 
-              className="h-5 md:h-6 w-auto object-contain"
+              className="h-6 md:h-7 w-auto object-contain"
               onError={(e) => {
                 e.currentTarget.onerror = null;
                 e.currentTarget.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNmQwOWIzIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PG1hc2sgaWQ9Im0iPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0id2hpdGUiLz48bGluZSB4MT0iNCIgeTE9IjgiIHgyPSIxMiIgeTI9IjEyIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiLz48L21hc2s+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOSIgbWFzaz0idXJsKCNtKSIvPjwvc3ZnPg==";
               }}
             />
-            <div className="font-bold tracking-tight text-base md:text-lg hidden xs:block">
+            {/* Texto do Logo escondido em mobile pequeno */}
+            <div className="font-bold tracking-tight text-base md:text-lg hidden sm:block">
               LUMETRIC <span className="text-primary opacity-80">| INSIGHTS</span>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-28 md:pt-32 flex-1">
+      {/* Ajuste de Padding Top para compensar o Header fixo */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-32 md:pt-40 flex-1 w-full">
         
-        <div className="mb-12">
-            <h1 className="text-4xl xs:text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-6">
+        {/* Título Principal com margem inferior aumentada para evitar colisão com barra de busca */}
+        <div className="mb-16 md:mb-20">
+            <h1 className="text-4xl xs:text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-6 break-words">
               CONHECIMENTO<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">É PODER.</span>
             </h1>
         </div>
 
-        {/* BARRA DE FILTROS E BUSCA */}
-        <div className={`sticky top-[72px] z-40 transition-all duration-500 ease-in-out -mx-4 md:-mx-6 px-4 md:px-6 py-4 mb-10 ${isScrolled ? 'bg-background-dark/90 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
+        {/* BARRA DE FILTROS E BUSCA (Sticky) */}
+        {/* Adicionado z-index alto e background sólido para sobrepor o conteúdo ao rolar */}
+        <div className={`sticky top-[72px] z-40 transition-all duration-300 -mx-4 md:-mx-6 px-4 md:px-6 py-4 mb-10 bg-background-dark/95 backdrop-blur-xl border-y border-white/5 shadow-2xl`}>
            <div className="space-y-4 max-w-7xl mx-auto">
              {/* Search Input */}
              <div className="relative w-full max-w-md">
@@ -723,7 +729,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
              </div>
 
              {/* Filters */}
-             <div className="flex overflow-x-auto gap-6 md:gap-8 pb-2 no-scrollbar whitespace-nowrap mask-image-gradient">
+             <div className="flex overflow-x-auto gap-6 md:gap-8 pb-2 no-scrollbar whitespace-nowrap mask-image-gradient w-full">
               {FILTER_CATEGORIES.map((cat) => (
                 <button
                   key={cat}
@@ -748,15 +754,16 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
              <p>{t('blog.loading')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24">
+          /* Grid Responsivo: 1 coluna no mobile, 2 no tablet, 3 no desktop */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24 w-full">
             {filteredPosts.map((post: any, index: number) => (
               <article 
                 key={post.id}
                 onClick={() => openArticle(post)}
-                className="group bg-[#121212] border border-white/10 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_-5px_rgba(109,9,179,0.3)] hover:border-primary/50 flex flex-col h-full animate-fade-in-up fill-mode-forwards relative"
+                className="group bg-[#121212] border border-white/10 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_-5px_rgba(109,9,179,0.3)] hover:border-primary/50 flex flex-col h-full w-full animate-fade-in-up fill-mode-forwards relative"
                 style={{ animationDelay: `${Math.min(index * 100, 1000)}ms` }}
               >
-                <div className="h-48 md:h-56 overflow-hidden relative bg-gray-800">
+                <div className="h-48 md:h-56 overflow-hidden relative bg-gray-800 w-full">
                   <img 
                     src={post.image || "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"} 
                     alt={post.title} 
@@ -781,7 +788,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
                   )}
                 </div>
 
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-6 flex flex-col flex-1 w-full">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-bold text-primary uppercase tracking-widest">{post.category}</span>
                     <span className="text-xs text-white/30 font-mono">{post.date}</span>
@@ -792,8 +799,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
                   </h3>
                   
                   <p 
-                    className="text-white/50 text-sm mb-6 font-light leading-relaxed flex-1"
-                    style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    className="text-white/50 text-sm mb-6 font-light leading-relaxed flex-1 line-clamp-3"
                   >
                     {post.excerpt}
                   </p>
