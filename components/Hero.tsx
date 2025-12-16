@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onOpenBlog }) => {
         <div className="w-full">
           <div className="flex flex-col gap-8 md:gap-10">
             <div className="flex flex-col gap-4 text-left">
-              <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] md:leading-[0.9] tracking-tighter text-white break-words whitespace-pre-line">
+              <h1 className="text-3xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] md:leading-[0.9] tracking-tighter text-white break-words whitespace-pre-line">
                 {t('hero.title').split('\n')[0]}<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50">{t('hero.title').split('\n')[1]}</span>
               </h1>
