@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -24,12 +23,7 @@ const App: React.FC = () => {
 
   // RENDERIZAÇÃO CONDICIONAL: SE FOR BLOG, MOSTRA SÓ O BLOG
   if (currentView === 'blog') {
-    return (
-      <>
-        <Blog onBack={() => setCurrentView('home')} />
-        <Analytics />
-      </>
-    );
+    return <Blog onBack={() => setCurrentView('home')} />;
   }
 
   // SE NÃO, MOSTRA A LANDING PAGE PADRÃO
@@ -66,8 +60,6 @@ const App: React.FC = () => {
       {isConsultationOpen && (
         <ConsultationModal onClose={closeConsultation} />
       )}
-      
-      <Analytics />
     </div>
   );
 };

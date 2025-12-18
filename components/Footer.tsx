@@ -59,8 +59,8 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-white/20 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-white/80 text-sm">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="LUMETRIC" width="24" height="24" className="h-6 w-auto brightness-200" />
-            <span className="font-bold text-lg text-white">LUMETRIC</span>
+            <img src="/logo.png" alt="LUMETRIC Logo" width="32" height="32" className="h-8 w-auto object-contain" />
+            <span className="font-bold text-xl text-white tracking-tighter uppercase">LUMETRIC</span>
           </div>
 
           <div className="flex gap-8 font-medium">
