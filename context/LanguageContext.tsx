@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'pt' | 'en';
@@ -22,7 +23,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     'hero.title': 'Não Busque Atenção.\nExija Obsessão.',
     'hero.subtitle': 'A LUMETRIC transforma tráfego frio em desejo ardente. Marketing de precisão para marcas que se recusam a ser ignoradas.',
-    'hero.cta_primary': '[ INICIAR A DOMINAÇÃO ]',
+    'hero.cta_primary': '[ DOMINE O SEU MERCADO ]',
     'hero.cta_secondary': 'LER ARTIGOS',
 
     // Manifesto
@@ -33,17 +34,19 @@ const translations: Record<Language, Record<string, string>> = {
     // Services
     'services.title': 'Arquitetura de \nCrescimento',
     'services.cta': '[ ESCOLHA SUA ARMA ]',
-    'services.s1.title': 'Brand Equity & Design',
-    'services.s1.desc': 'Não criamos apenas logotipos; forjamos ativos visuais de alto valor. Desenvolvemos identidades que aumentam instantaneamente a perceção de preço da sua marca, criando uma estética que intimida a concorrência e estabelece autoridade visual imediata.',
+    'services.s1.title': 'Criação de Sites de Elite',
+    'services.s1.desc': 'Desenvolvemos interfaces que não apenas informam, mas convertem. Arquitetura digital com design editorial e UX focado em exclusividade para posicionar sua marca no topo do mercado.',
     'services.s2.title': 'Tráfego de Alta Performance',
-    'services.s2.desc': 'Abandone as métricas de vaidade. A nossa gestão de tráfego utiliza dados agressivos e segmentação cirúrgica para garantir que cada centavo investido retorne multiplicado. O foco é puramente em ROI, escala e aquisição de clientes qualificados.',
-    'services.s3.title': 'Editorial Social',
-    'services.s3.desc': 'Transforme o seu feed numa revista digital. A nossa estratégia de conteúdo foge do genérico para criar narrativas visuais magnéticas. Produzimos material que não só educa, mas cria desejo e cultura ao redor da marca, convertendo seguidores em embaixadores.',
-    'services.s4.title': 'Funis de Conversão',
-    'services.s4.desc': 'A jornada do cliente não pode ser um acidente; deve ser engenharia. Desenhamos arquiteturas digitais que guiam o visitante de forma estratégica, eliminando fricções e transformando a simples curiosidade numa máquina previsível de receita recorrente.',
+    'services.s2.desc': 'Engenharia de aquisição através de segmentação cirúrgica. Escala agressiva em Meta e Google Ads para garantir que sua oferta apareça para quem tem capital, não apenas curiosidade.',
+    'services.s3.title': 'SEO & Dominação Orgânica',
+    'services.s3.desc': 'Posicionamos sua marca no topo da cadeia alimentar do Google. Autoridade construída através de conteúdo estratégico que atrai tráfego qualificado de forma previsível e perene.',
+    'services.s4.title': 'Funis de Vendas Complexos',
+    'services.s4.desc': 'Desenhamos a jornada completa do cliente, eliminando fricções e criando máquinas de vendas automatizadas que trabalham 24/7 para maximizar seu lucro e LTV.',
+    'services.s5.title': 'Social Media Marketing',
+    'services.s5.desc': 'Transformamos perfis sociais em vitrines magnéticas. Conteúdo editorial que gera autoridade imediata e constrói uma comunidade de advogados fiéis ao redor da sua marca.',
 
     // Cases
-    'cases.title': 'Fatos. Não Ficção.',
+    'cases.title': 'Resultados Reais. Não Apenas Promessas.',
     'cases.view_all': 'Ver Todos',
     'cases.read_brief': '[ LER O BRIEFING ]',
     'cases.view_innovation': '[ VER A INOVAÇÃO ]',
@@ -130,7 +133,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     'hero.title': 'Don\'t Seek Attention.\nDemand Obsession.',
     'hero.subtitle': 'LUMETRIC turns cold traffic into burning desire. Precision marketing for brands that refuse to be ignored.',
-    'hero.cta_primary': '[ START DOMINATION ]',
+    'hero.cta_primary': '[ DOMINATE YOUR MARKET ]',
     'hero.cta_secondary': 'READ ARTICLES',
 
     // Manifesto
@@ -141,17 +144,19 @@ const translations: Record<Language, Record<string, string>> = {
     // Services
     'services.title': 'Growth \nArchitecture',
     'services.cta': '[ CHOOSE YOUR WEAPON ]',
-    'services.s1.title': 'Brand Equity & Design',
-    'services.s1.desc': 'We don\'t just create logos; we forge high-value visual assets. We develop identities that instantly increase your brand\'s price perception, creating an aesthetic that intimidates competition and establishes immediate visual authority.',
+    'services.s1.title': 'Elite Website Creation',
+    'services.s1.desc': 'We develop interfaces that don\'t just inform, but convert. Digital architecture with editorial design and UX focused on exclusivity to position your brand at the top of the market.',
     'services.s2.title': 'High Performance Traffic',
-    'services.s2.desc': 'Abandon vanity metrics. Our traffic management uses aggressive data and surgical targeting to ensure every penny invested returns multiplied. The focus is purely on ROI, scale, and acquiring qualified clients.',
-    'services.s3.title': 'Social Editorial',
-    'services.s3.desc': 'Turn your feed into a digital magazine. Our content strategy flees from generic to create magnetic visual narratives. We produce material that not only educates but creates desire and culture around the brand, converting followers into ambassadors.',
-    'services.s4.title': 'Conversion Funnels',
-    'services.s4.desc': 'The customer journey cannot be an accident; it must be engineering. We design digital architectures that guide the visitor strategically, eliminating friction and turning simple curiosity into a predictable recurring revenue machine.',
+    'services.s2.desc': 'Acquisition engineering through surgical targeting. Aggressive scale in Meta and Google Ads to ensure your offer appears to those with capital, not just curiosity.',
+    'services.s3.title': 'SEO & Organic Domination',
+    'services.s3.desc': 'We position your brand at the top of Google\'s food chain. Authority built through strategic content that attracts qualified traffic predictably and permanently.',
+    'services.s4.title': 'Complex Sales Funnels',
+    'services.s4.desc': 'We design the complete customer journey, eliminating friction and creating automated sales machines that work 24/7 to maximize your profit and LTV.',
+    'services.s5.title': 'Social Media Marketing',
+    'services.s5.desc': 'We transform social profiles into magnetic showcases. Editorial content that generates immediate authority and builds a loyal community of advocates around your brand.',
 
     // Cases
-    'cases.title': 'Facts. Not Fiction.',
+    'cases.title': 'Real Results. Not Just Promises.',
     'cases.view_all': 'View All',
     'cases.read_brief': '[ READ BRIEFING ]',
     'cases.view_innovation': '[ SEE INNOVATION ]',

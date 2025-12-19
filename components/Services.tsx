@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -11,24 +12,29 @@ const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
 
   const services = [
     {
-      icon: "stack",
+      icon: "laptop_mac",
       title: t('services.s1.title'),
       description: t('services.s1.desc')
     },
     {
-      icon: "trending_up",
+      icon: "ads_click",
       title: t('services.s2.title'),
       description: t('services.s2.desc')
     },
     {
-      icon: "article",
+      icon: "search",
       title: t('services.s3.title'),
       description: t('services.s3.desc')
     },
     {
-      icon: "filter_alt",
+      icon: "filter_list",
       title: t('services.s4.title'),
       description: t('services.s4.desc')
+    },
+    {
+      icon: "share",
+      title: t('services.s5.title'),
+      description: t('services.s5.desc')
     }
   ];
 
@@ -44,7 +50,7 @@ const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
               <span className="text-primary">{t('services.title').split('\n')[1]}</span>
             </h2>
             
-            <div className="min-h-[120px] lg:min-h-[160px] relative">
+            <div className="min-h-[140px] lg:min-h-[180px] relative">
               <p 
                 key={activeIndex !== null ? activeIndex : 'default'}
                 className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mb-8 md:mb-10 animate-fade-in transition-all duration-500"
@@ -71,7 +77,7 @@ const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
                 <button 
                   key={index}
                   onClick={() => setActiveIndex(isActive ? null : index)}
-                  className={`group w-full text-left p-6 md:p-8 rounded-xl border transition-all duration-300 ease-in-out transform hover:-translate-y-1 
+                  className={`group w-full text-left p-5 md:p-7 rounded-xl border transition-all duration-300 ease-in-out transform hover:-translate-y-1 
                     ${isActive 
                       ? 'bg-white/10 border-primary shadow-[0_0_20px_-5px_rgba(109,9,179,0.3)]' 
                       : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.05] hover:border-primary/50'
@@ -83,7 +89,7 @@ const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
                         {service.icon}
                       </span>
                     </div>
-                    <h3 className={`text-lg md:text-xl lg:text-2xl font-bold leading-tight transition-colors duration-300 ${isActive ? 'text-primary' : 'text-white group-hover:text-primary'}`}>
+                    <h3 className={`text-base md:text-xl lg:text-2xl font-bold leading-tight transition-colors duration-300 ${isActive ? 'text-primary' : 'text-white group-hover:text-primary'}`}>
                       {service.title}
                     </h3>
                     <div className={`ml-auto transition-all duration-300 ${isActive ? 'opacity-100 text-primary translate-x-0' : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 text-gray-500 group-hover:text-primary'} hidden sm:block`}>
