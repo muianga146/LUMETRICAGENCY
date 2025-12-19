@@ -362,11 +362,8 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   const BlogFooter = () => (
     <footer className="w-full border-t border-white/5 bg-[#050505] py-12 mt-20 relative z-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex flex-col gap-2">
-           <div className="flex items-center gap-3">
-             <img src="/logo.png" alt="LUMETRIC Logo" className="h-8 w-auto object-contain" onError={(e) => {e.currentTarget.style.display='none'}} />
-             <h4 className="font-bold text-white tracking-tighter uppercase text-xl">LUMETRIC <span className="text-primary text-xs align-top opacity-80">INSIGHTS</span></h4>
-           </div>
+        <div className="flex flex-col gap-2 text-center md:text-left">
+           <h4 className="font-bold text-white tracking-tighter uppercase text-xl">LUMETRIC <span className="text-primary text-xs align-top opacity-80">INSIGHTS</span></h4>
            <p className="text-white/40 text-xs max-w-xs mt-2">Estratégias de dominação de mercado, entregues sem filtro.</p>
         </div>
         <div className="text-white/20 text-[10px] uppercase">
@@ -407,6 +404,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             </button>
           </div>
         </nav>
+        {/* ... Rest of editing UI ... */}
         <div className="max-w-4xl mx-auto w-full px-4 md:px-6 pt-28 md:pt-32 pb-20 flex-1 flex flex-col gap-6 md:gap-8">
           <div className="w-full relative group">
             <input 
@@ -547,6 +545,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             {selectedArticle.category}
           </span>
         </nav>
+        {/* ... Rest of Article UI ... */}
         <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-6 animate-fade-in">
           <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 -rotate-90 whitespace-nowrap mb-4">
              {t('blog.share_obsession')}
@@ -597,7 +596,7 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
   return (
     <div className="min-h-screen w-full bg-background-dark text-white animate-fade-in relative flex flex-col overflow-x-hidden">
       <nav className="fixed top-0 left-0 w-full z-50 bg-background-dark/95 backdrop-blur-xl border-b border-white/10 px-4 md:px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex items-center justify-start">
           <button 
             onClick={onBack}
             className="group flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
@@ -605,17 +604,6 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
             <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1 text-2xl">arrow_back</span>
             <span className="hidden md:inline">{t('blog.back_home')}</span>
           </button>
-          
-          <div className="flex items-center gap-3">
-            <img 
-              src="/logo.png" 
-              alt="LUMETRIC Logo" 
-              className="h-8 md:h-10 w-auto object-contain"
-            />
-            <div className="font-bold tracking-tighter text-xl md:text-2xl hidden sm:block uppercase">
-              LUMETRIC <span className="text-primary opacity-80">| INSIGHTS</span>
-            </div>
-          </div>
         </div>
       </nav>
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-32 md:pt-40 flex-1 w-full">
@@ -721,9 +709,10 @@ const Blog: React.FC<BlogProps> = ({ onBack }) => {
       <div className="w-full border-t border-white/5 py-4 text-center bg-[#050505]">
         <button onClick={() => setShowLoginModal(true)} className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 hover:text-primary transition-colors">{t('blog.admin_area')}</button>
       </div>
+      {/* ... Modals (Login, Waitlist) ... */}
       {showLoginModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#151515] border border-white/10 p-8 rounded-2xl w-full max-w-sm relative animate-fade-in shadow-2xl">
+          <div className="bg-[#151515] border border-white/10 p-8 rounded-2xl w-full max-sm relative animate-fade-in shadow-2xl">
             <button onClick={() => { setShowLoginModal(false); setPasswordInput(""); }} className="absolute top-4 right-4 text-white/50 hover:text-white"><span className="material-symbols-outlined">close</span></button>
             <div className="text-center mb-6">
               <span className="material-symbols-outlined text-primary text-4xl mb-2">lock</span>
